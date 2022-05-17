@@ -1,12 +1,17 @@
 import React from 'react';
+import { CreateElementComponent } from './components/CreateElementComponent';
+import { Counter } from './components/Counter/Counter';
+import { Search } from './components/Search/Search';
+import { GenreToggle } from './components/GenreToggle/GenreToggle';
+import './App.module.css';
 
-const App = () => {
+const App: React.FC = () => {
 	return (
 		<>
-			<h1>React TypeScript Webpack starter Template</h1>
-			<h2>
-				{process.env.NODE_ENV}, {process.env.name}
-			</h2>
+			<CreateElementComponent/>
+			<Counter />
+			<Search />
+			<GenreToggle />
 		</>
 	);
 };
