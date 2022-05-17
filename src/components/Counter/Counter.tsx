@@ -1,15 +1,9 @@
 import React from 'react';
+import { PropsEmpty, StateCounter } from '../../types/types';
 import { Button } from '../Button/Button';
 
-interface state {
-	count: number;
-	label: string;
-}
-
-interface props {}
-
-export class Counter extends React.Component<props, state> {
-	constructor(props: props) {
+export class Counter extends React.Component<PropsEmpty, StateCounter> {
+	constructor(props: PropsEmpty) {
 		super(props);
 
 		this.state = {

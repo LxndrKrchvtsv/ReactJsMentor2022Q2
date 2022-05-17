@@ -1,15 +1,10 @@
 import React, { PureComponent } from 'react';
 import { Button } from '../Button/Button';
 import Styles from './Search.module.css';
+import { PropsEmpty, StateSearch } from '../../types/types';
 
-interface state {
-	queryString: string;
-}
-
-interface props {}
-
-export class Search extends PureComponent<props, state> {
-	constructor(props: props) {
+export class Search extends PureComponent<PropsEmpty, StateSearch> {
+	constructor(props: PropsEmpty) {
 		super(props);
 
 		this.state = {
