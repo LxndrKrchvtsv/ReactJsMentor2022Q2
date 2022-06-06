@@ -1,17 +1,22 @@
 import React from 'react';
 import Styles from './GenreToggle.module.css';
 
-interface props {
+interface Props {
 	index: number;
 	genre: string;
 	isActive: boolean;
 	toggleActive: (index: number) => void;
 }
 
-export const GenreItem: React.FC<props> = ({index, genre, toggleActive, isActive}) => {
+export const GenreItem: React.FC<Props> = ({ index, genre, toggleActive, isActive }) => {
 	return (
-		<div className={`${Styles.genre__toggle__item} ${isActive ? Styles.active : ''}`}
-			 onClick={() => toggleActive(index)}>
+		<div
+			className={`${Styles.genre__toggle__item} ${isActive ? Styles.active : ''}`}
+			onClick={() => toggleActive(index)}
+			onKeyUp={() => toggleActive(index)}
+			role={'menuitem'}
+			tabIndex={0}
+		>
 			{genre}
 		</div>
 	);
