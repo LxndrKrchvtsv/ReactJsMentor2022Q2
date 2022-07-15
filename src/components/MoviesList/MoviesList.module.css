@@ -1,0 +1,7 @@
+.movies__list__wrapper {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	background-color: #232323;
+	padding: 0 3%;
+}

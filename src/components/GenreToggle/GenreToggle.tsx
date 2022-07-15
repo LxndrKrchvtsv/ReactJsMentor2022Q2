@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
-import { PropsEmpty, StateGenreToggle } from '../../types/types';
+
 import { GenreItem } from './GenreItem';
 import Styles from './GenreToggle.module.css';
 
-export const GenreToggle: React.FC<PropsEmpty> = () => {
+type StateGenreToggle = {
+	readonly genres: string[];
+	activeGenre: number;
+};
+
+export const GenreToggle = () => {
 	const [state, setState] = useState<StateGenreToggle>({
 		genres: ['ALL', 'DOCUMENTARY', 'COMEDY', 'HORROR', 'CRIME'],
 		activeGenre: 0,

@@ -1,0 +1,16 @@
+.header {
+	height: 396px;
+	display: flex;
+	background-image: url('../../asset/inline/Bitmap.png');
+	background-color: #000;
+	flex-direction: column;
+	align-items: center;
+}
+
+.logo__button__wrapper {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	width: 92%;
+	margin-top: 30px;
+}

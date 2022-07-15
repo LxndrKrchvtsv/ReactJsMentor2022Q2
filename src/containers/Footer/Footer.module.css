@@ -1,0 +1,9 @@
+.footer__wrapper {
+	background-color: #424242;
+}
+
+.footer__wrapper img {
+	margin: auto;
+	padding: 24px 0;
+	display: block;
+}
