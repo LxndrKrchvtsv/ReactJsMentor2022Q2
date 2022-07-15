@@ -1,15 +1,37 @@
 import React from 'react';
-import { Counter } from './components/Counter/Counter';
+
+import './App.module.css';
+import Styles from './containers/Header/Header.module.css';
+
+import { Header } from './containers/Header/Header';
+import { Body } from './containers/Body/Body';
+import { Footer } from './containers/Footer/Footer';
+import { Logo } from './components/Logo/Logo';
+import { AddMovie } from './components/AddMovie/AddMovie';
 import { Search } from './components/Search/Search';
 import { GenreToggle } from './components/GenreToggle/GenreToggle';
-import './App.module.css';
+import { ErrorBoundary } from './components/ErrorBoundary/ErrorBoundary';
+import { MoviesList } from './components/MoviesList/MoviesList';
 
-const App: React.FC = () => {
+const App = () => {
 	return (
 		<>
-			<Counter />
-			<Search />
-			<GenreToggle />
+			<Header>
+				<div className={Styles.logo__button__wrapper}>
+					<Logo />
+					<AddMovie />
+				</div>
+				<Search />
+			</Header>
+			<Body>
+				<GenreToggle />
+				<ErrorBoundary>
+					<MoviesList />
+				</ErrorBoundary>
+			</Body>
+			<Footer>
+				<Logo />
+			</Footer>
 		</>
 	);
 };

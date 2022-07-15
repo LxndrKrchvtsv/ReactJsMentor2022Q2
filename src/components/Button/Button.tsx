@@ -1,7 +1,12 @@
 import React from 'react';
-import { PropsButton } from '../../types/types';
 
-export const Button: React.FC<PropsButton> = ({ handler, label, classButton }) => {
+type PropsButton = {
+	handler?: () => void;
+	label: string;
+	classButton?: string;
+};
+
+export const Button = ({ handler, label, classButton }: PropsButton) => {
 	return (
 		<button type={'button'} className={classButton} onClick={handler}>
 			{label}
