@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 
-import { MoviesListResponse } from '../types/types';
+import { MoviesListResponse } from '../../types/types';
 
 const baseUrl = 'http://localhost:4000/';
 

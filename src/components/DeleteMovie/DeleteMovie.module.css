@@ -1,0 +1,21 @@
+.button__reset,
+.button__confirm {
+	border: 1px solid #f65261;
+	border-radius: 3px;
+	background-color: initial;
+	color: #f65261;
+	margin-right: 15px;
+	padding: 17px 47px;
+	font-size: 20px;
+}
+
+.button__confirm {
+	background-color: #f65261;
+	color: #fff;
+	align-self: flex-end;
+}
+
+.delete__movie__container {
+	display: flex;
+	flex-direction: column;
+}
