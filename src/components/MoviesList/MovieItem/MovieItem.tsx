@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import { ButtonOption } from '../../ButtonOption/ButtonOption';
 
 import Styles from './Movie.module.css';
 
@@ -7,11 +9,19 @@ type MovieItemType = {
 	releaseDate: string;
 	tagline: string;
 	title: string;
+	handler: () => void;
+	handlerRemove: () => void;
 };
 
-export const MovieItem = ({ posterPath, releaseDate, tagline, title }: MovieItemType) => {
+export const MovieItem = ({ posterPath, releaseDate, tagline, title, handler, handlerRemove }: MovieItemType) => {
+	const [isOptionVisible, setIsOptionVisible] = useState(false);
+	const handleOptionVisible = (booleanOption: boolean) => () => {
+		setIsOptionVisible(booleanOption);
+	};
+
 	return (
-		<div className={Styles.movie__wrapper}>
+		<div className={Styles.movie__wrapper} onMouseEnter={handleOptionVisible(true)} onMouseLeave={handleOptionVisible(false)}>
+			{isOptionVisible && <ButtonOption handler={handler} handlerRemove={handlerRemove} />}
 			<div>
 				<img src={posterPath} alt={'movie'} />
 			</div>

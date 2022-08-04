@@ -4,3 +4,7 @@ body {
 	box-sizing: border-box;
 	background-color: #888;
 }
+
+main {
+	position: relative;
+}
