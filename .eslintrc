@@ -1,13 +1,17 @@
 {
   "plugins": [
     "prettier",
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "import"
   ],
   "extends": [
     "airbnb-typescript",
     "airbnb-typescript-prettier",
     "react-app",
-    "prettier"
+    "prettier",
+    "eslint:recommended",
+    "plugin:import/recommended",
+    "plugin:import/typescript"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -32,6 +36,7 @@
       "error",
       "never"
     ],
+    "react/require-default-props": "off",
     "react/function-component-definition": [
       2,
       {
@@ -114,6 +119,14 @@
         ]
       }
     ],
+    "import/order": [
+      "error",
+      {
+        "groups": ["external", "internal", "parent", "sibling", "builtin", "index", "object", "type"],
+        "pathGroupsExcludedImportTypes": [],
+        "newlines-between": "always-and-inside-groups"
+      }
+    ],
     "react/jsx-props-no-spreading": "off",
     "import/prefer-default-export": "off",
     "react/jsx-boolean-value": "off",
@@ -121,6 +134,11 @@
     "react/no-unescaped-entities": "off",
     "react/jsx-one-expression-per-line": "off",
     "react/jsx-wrap-multilines": "off",
-    "react/destructuring-assignment": "off"
+    "react/destructuring-assignment": "off",
+    "import/no-unresolved": [2, {"commonjs": true, "amd": true}],
+    "import/named": 2,
+    "import/namespace": 2,
+    "import/default": 2,
+    "import/export": 2
   }
 }
