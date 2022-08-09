@@ -1,0 +1,67 @@
+.add__movie__button {
+	width: 177px;
+	height: 46px;
+	background: rgba(96, 96, 96, 0.68);
+	border: none;
+	border-radius: 4px;
+	color: #f65261;
+	font-size: 20px;
+	line-height: 24px;
+}
+
+.add__movie__container {
+	display: flex;
+	flex-direction: column;
+}
+
+.add__movies__inputs__wrapper {
+	display: flex;
+	justify-content: space-between;
+}
+
+.add__movies__input__block,
+.add__movies__textarea__block {
+	display: flex;
+	flex-direction: column;
+	margin-top: 20px;
+	color: #f65261;
+}
+
+.add__movies__input__block input,
+.add__movies__textarea__block textarea,
+.add__movies__input__block select {
+	background-color: rgba(50, 50, 50, 0.948);
+	color: #fff;
+	border: none;
+	border-right: 3px;
+	padding: 17px;
+}
+
+.left__section__inputs {
+	width: 60%;
+}
+.right__section__inputs {
+	width: 35%;
+}
+
+.reset__confirm__wrapper {
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 60px;
+}
+
+.button__reset,
+.button__confirm {
+	border: 1px solid #f65261;
+	border-radius: 3px;
+	background-color: initial;
+	color: #f65261;
+	margin-right: 15px;
+	padding: 17px 47px;
+	font-size: 20px;
+}
+
+.button__confirm {
+	background-color: #f65261;
+	color: #fff;
+}

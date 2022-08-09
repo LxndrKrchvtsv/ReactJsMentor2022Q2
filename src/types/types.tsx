@@ -17,11 +17,11 @@ export type Movie = {
 	title: string;
 	vote_average: number;
 	vote_count: number;
-}
+};
 
 export type MoviesListResponse = {
 	data: Movie[];
 	limit: number;
 	offset: number;
 	totalAmount: number;
-}
+};

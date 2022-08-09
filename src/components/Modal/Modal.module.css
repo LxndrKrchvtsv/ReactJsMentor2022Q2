@@ -1,0 +1,23 @@
+.overlay__wrapper {
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background-color: #232323ea;
+}
+
+.modal__wrapper {
+	position: fixed;
+	margin: auto;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	width: 45%;
+	height: fit-content;
+	padding: 50px;
+	background-color: #232323;
+	color: #fff;
+	border-radius: 3px;
+}
