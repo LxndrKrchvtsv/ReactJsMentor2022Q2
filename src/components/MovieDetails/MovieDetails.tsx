@@ -4,9 +4,10 @@ import Styles from './MovieDetails.module.css';
 
 import SearchButton from '../../asset/inline/SearchButton.svg';
 import { Logo } from '../Logo/Logo';
-import { getMovieDetail } from '../../core/api/api';
-import { Movie } from '../../types/types';
 import { Label } from '../Label/Label';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { useAppSelector } from '../../hooks/useAppSelector';
+import { fetchMovieDetail } from '../../store/CreateAsyncThunks/fetchMovieDetail';
 
 type Props = {
 	id: number | null;
@@ -14,38 +15,44 @@ type Props = {
 }
 
 export const MovieDetails = ({ id, handler }: Props) => {
-	const [movieDetail, setMovieDetail] = useState<Movie>({} as Movie);
+	const dispatch = useAppDispatch();
+	const { movie, isLoading, error } = useAppSelector(state => state.movieDetailReducer);
 
 	useEffect(() => {
-		getMovieDetail(id).then(res => setMovieDetail(res.data));
+		id && dispatch(fetchMovieDetail(id));
 	}, [id]);
 
 	const getHoursFromMinutes = useCallback(() => {
-		const hours = Math.trunc(movieDetail.runtime/60);
-		const minutes = movieDetail.runtime % 60;
+		const hours = Math.trunc(movie.runtime / 60);
+		const minutes = movie.runtime % 60;
 		return `${hours} h ${minutes} min`;
-	}, [movieDetail])
+	}, [movie]);
 
 	return (
 		<div className={Styles.section__description__wrapper}>
-			<div className={Styles.logo__search}><Logo small={true} /> <img src={SearchButton} alt='Search' onClick={handler(null)} /></div>
-			<div className={Styles.block__description__wrapper}>
-				<div className={Styles.poster}><
-					img src={movieDetail?.poster_path} alt='' />
-				</div>
-				<div className={Styles.text__description__wrapper}>
-					<div className={Styles.title__vote_average}><
-						Label label={movieDetail?.title} labelClassName={Styles.movie__header} />
-						<span>{movieDetail?.vote_average}</span>
-					</div>
-					<div className={Styles.genres}>{movieDetail?.genres?.join(' & ')}</div>
-					<div className={Styles.release__runtime}>
-						<span>{movieDetail?.release_date?.slice(0, 4)}</span>
-						<span>{getHoursFromMinutes()}</span>
-					</div>
-					<div className={Styles.overview}>{movieDetail?.overview}</div>
-				</div>
+			<div className={Styles.logo__search}>
+				<Logo small={true} />
+				<img src={SearchButton} alt='Search' onClick={handler(null)} />
 			</div>
+			{isLoading && 'Please wait while it is loading'}
+			{error ? error : isLoading ? isLoading :
+				<div className={Styles.block__description__wrapper}>
+					<div className={Styles.poster}>
+						<img src={movie?.poster_path} alt='poster' />
+					</div>
+					<div className={Styles.text__description__wrapper}>
+						<div className={Styles.title__vote_average}><
+							Label label={movie?.title} labelClassName={Styles.movie__header} />
+							<span>{movie?.vote_average}</span>
+						</div>
+						<div className={Styles.genres}>{movie?.genres?.join(' & ')}</div>
+						<div className={Styles.release__runtime}>
+							<span>{movie?.release_date?.slice(0, 4)}</span>
+							<span>{getHoursFromMinutes()}</span>
+						</div>
+						<div className={Styles.overview}>{movie?.overview}</div>
+					</div>
+				</div>}
 		</div>
 	);
 };

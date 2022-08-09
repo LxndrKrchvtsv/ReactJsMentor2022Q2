@@ -24,3 +24,11 @@ main {
 	padding: 0 3%;
 }
 
+.filter__sorting__wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	padding: 30px 5%;
+	background: #232323;
+}

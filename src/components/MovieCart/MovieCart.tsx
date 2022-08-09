@@ -7,7 +7,7 @@ import { Button } from '../Button/Button';
 import { Select } from '../Select/Select';
 
 import Styles from './MovieCart.module.css';
-import { useMovieForm } from './hooks/useMovieForm';
+import { useMovieForm } from '../../hooks/useMovieForm';
 
 type Props = {
 	header: string;

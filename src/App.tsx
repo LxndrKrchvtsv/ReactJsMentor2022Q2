@@ -17,6 +17,7 @@ import { Button } from './components/Button/Button';
 import { Modal } from './components/Modal/Modal';
 import { DeleteMovie } from './components/DeleteMovie/DeleteMovie';
 import { MovieDetails } from './components/MovieDetails/MovieDetails';
+import { SortingFilm } from './components/SortingFilm/SortingFilm';
 
 const App = () => {
 	const [movieId, setMovieId] = useState<number | null>(null);
@@ -37,9 +38,7 @@ const App = () => {
 	return (
 		<main>
 			<Header>
-				{movieId ?
-					<MovieDetails id={movieId} handler={handleMovieId} />
-					:
+				{movieId ? <MovieDetails id={movieId} handler={handleMovieId} /> :
 					<>
 						<div className={HeaderStyles.logo__button__wrapper}>
 							<Logo />
@@ -53,7 +52,10 @@ const App = () => {
 				}
 			</Header>
 			<Body>
-				<GenreToggle />
+				<div className={Styles.filter__sorting__wrapper}>
+					<GenreToggle />
+					<SortingFilm />
+				</div>
 				<ErrorBoundary>
 					<div className={Styles.movies__list__wrapper}>
 						<MoviesList
@@ -67,7 +69,6 @@ const App = () => {
 			<Footer>
 				<Logo />
 			</Footer>
-
 			<Modal isClosed={isClosed} handler={handleSetIsClosed(false)}>
 				<MovieCart header={titleModal} />
 			</Modal>
