@@ -17,11 +17,28 @@ export type Movie = {
 	title: string;
 	vote_average: number;
 	vote_count: number;
-}
+};
 
 export type MoviesListResponse = {
 	data: Movie[];
 	limit: number;
 	offset: number;
 	totalAmount: number;
-}
+};
+
+type Form = {
+	errors: string;
+	touched: string;
+};
+
+type Field = {
+	name: number;
+	value: string | [];
+	onChange: () => void;
+	onBlur: () => void;
+};
+
+export type FormField = {
+	form: Form;
+	field: Field;
+};

@@ -1,27 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import { GenreItem } from './GenreItem';
+import { toggleGenres } from '../../constants/genres';
+
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { useAppSelector } from '../../hooks/useAppSelector';
+import { toggleGenre } from '../../store/Reducers/movieListSlice';
+
 import Styles from './GenreToggle.module.css';
-
-type StateGenreToggle = {
-	readonly genres: string[];
-	activeGenre: number;
-};
+import { GenreItem } from './GenreItem';
 
 export const GenreToggle = () => {
-	const [state, setState] = useState<StateGenreToggle>({
-		genres: ['ALL', 'DOCUMENTARY', 'COMEDY', 'HORROR', 'CRIME'],
-		activeGenre: 0,
-	});
-
-	const toggleActive = (index: number) => {
-		setState({ ...state, activeGenre: index });
+	const dispatch = useAppDispatch();
+	const { activeGenre } = useAppSelector((state) => state.moviesListReducer);
+	const handleToggleActive = (genre: string) => () => {
+		dispatch(toggleGenre(genre));
 	};
 
 	return (
 		<div className={Styles.genre__toggle__wrap}>
-			{state.genres.map((genre, index) => (
-				<GenreItem key={genre} index={index} genre={genre} isActive={state.activeGenre === index} toggleActive={toggleActive} />
+			{toggleGenres.map((genre, index) => (
+				<GenreItem key={genre} genre={genre} isActive={activeGenre === genre} toggleActive={handleToggleActive} />
 			))}
 		</div>
 	);

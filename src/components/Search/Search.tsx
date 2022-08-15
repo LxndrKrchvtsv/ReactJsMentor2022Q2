@@ -22,13 +22,7 @@ export class Search extends PureComponent<Record<string, never>, StateSearch> {
 		return (
 			<div className={Styles.search__wrapper}>
 				<Label label={'FIND YOUR MOVIE'} labelClassName={Styles.header__search} />
-				<input
-					onChange={this.handleSearchInput}
-					value={this.state.queryString}
-					placeholder={'What do you want to watch?'}
-					type={'text'}
-					className={Styles.search__input}
-				/>
+				<input onChange={this.handleSearchInput} value={this.state.queryString} placeholder={'What do you want to watch?'} type={'text'} className={Styles.search__input} />
 				<Button classButton={Styles.button__search} handler={this.handleStartSearch} label={'SEARCH'} />
 			</div>
 		);

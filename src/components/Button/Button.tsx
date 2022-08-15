@@ -4,11 +4,12 @@ type PropsButton = {
 	handler?: () => void;
 	label: string;
 	classButton?: string;
+	type?: 'button' | 'submit' | 'reset';
 };
 
-export const Button = ({ handler, label, classButton }: PropsButton) => {
+export const Button = ({ handler, label, classButton, type = 'button' }: PropsButton) => {
 	return (
-		<button type={'button'} className={classButton} onClick={handler}>
+		<button type={type} className={classButton} onClick={handler}>
 			{label}
 		</button>
 	);

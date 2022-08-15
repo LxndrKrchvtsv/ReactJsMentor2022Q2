@@ -8,6 +8,7 @@
 	flex-basis: calc(33.3333% - 55px);
 	flex-shrink: 0;
 	flex-grow: 0;
+	position: relative;
 }
 
 .movie__wrapper img {

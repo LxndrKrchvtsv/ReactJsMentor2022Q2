@@ -1,6 +1,36 @@
+html {
+	box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: inherit;
+}
+
 body {
 	font-family: Arial;
 	margin: 0;
-	box-sizing: border-box;
 	background-color: #888;
+}
+
+main {
+	position: relative;
+}
+
+.movies__list__wrapper {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	background-color: #232323;
+	padding: 0 3%;
+}
+
+.filter__sorting__wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	padding: 30px 5%;
+	background: #232323;
 }
