@@ -1,4 +1,5 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
+
 import moviesListReducer from './Reducers/movieListSlice';
 import movieDetailReducer from './Reducers/movieDetailSlice';
 

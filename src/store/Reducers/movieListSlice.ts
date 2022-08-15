@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 import { Movie } from '../../types/types';
 import { fetchMoviesList } from '../CreateAsyncThunks/fetchMoviesList';
 
@@ -8,7 +9,7 @@ type MovieListState = {
 	error: string;
 	activeGenre: string;
 	sortBy: string;
-}
+};
 
 const initialState: MovieListState = {
 	moviesList: [],
@@ -27,10 +28,12 @@ const movieListSlice = createSlice({
 		},
 		toggleSortBy(state, action: PayloadAction<string>) {
 			state.sortBy = action.payload;
-		}
+		},
 	},
 	extraReducers: {
-		[fetchMoviesList.pending.type]: (state) => {state.isLoading = true},
+		[fetchMoviesList.pending.type]: (state) => {
+			state.isLoading = true;
+		},
 		[fetchMoviesList.fulfilled.type]: (state, action: PayloadAction<Movie[]>) => {
 			state.isLoading = false;
 			state.moviesList = action.payload;
@@ -38,8 +41,8 @@ const movieListSlice = createSlice({
 		[fetchMoviesList.rejected.type]: (state, action: PayloadAction<string>) => {
 			state.isLoading = false;
 			state.error = action.payload;
-		}
-	}
+		},
+	},
 });
 
 export const { toggleGenre, toggleSortBy } = movieListSlice.actions;

@@ -25,6 +25,10 @@
     }
   },
   "rules": {
+    "no-param-reassign": [2, { "props": false }],
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "consistent-return": "off",
+    "react/button-has-type": "off",
     "jsx-a11y/label-has-associated-control": 0,
     "jsx-a11y/label-has-for": 0,
     "jsx-a11y/no-noninteractive-element-interactions": 0,

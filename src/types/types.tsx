@@ -25,3 +25,20 @@ export type MoviesListResponse = {
 	offset: number;
 	totalAmount: number;
 };
+
+type Form = {
+	errors: string;
+	touched: string;
+};
+
+type Field = {
+	name: number;
+	value: string | [];
+	onChange: () => void;
+	onBlur: () => void;
+};
+
+export type FormField = {
+	form: Form;
+	field: Field;
+};

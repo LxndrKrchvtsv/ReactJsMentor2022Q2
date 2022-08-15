@@ -4,21 +4,21 @@ import { movieCardGenres } from '../../constants/genres';
 
 import Styles from './Select.module.css';
 
-type Props = {
-	selectClassName: string;
-	handler: (event: React.ChangeEvent<HTMLInputElement>) => void;
+export type Props = {
+	className?: string;
+	onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	name: string;
 	value: string[];
 };
 
-export const Select = ({ selectClassName, handler, name, value }: Props) => {
+export const Select = ({ className, onChange, name, value }: Props) => {
 	const [isOpenSelect, setIsOpenSelect] = useState(false);
 	const handleState = (boolean: boolean) => () => {
 		setIsOpenSelect(boolean);
 	};
 
 	return (
-		<div className={selectClassName}>
+		<div className={className}>
 			<label>{'Genre'}</label>
 			<div className={Styles.multiselect} onMouseLeave={handleState(false)}>
 				<div className={Styles.selectBox}>
@@ -31,7 +31,7 @@ export const Select = ({ selectClassName, handler, name, value }: Props) => {
 					<div className={Styles.checkboxes}>
 						{movieCardGenres.map((element) => (
 							<label key={element}>
-								<input type={'checkbox'} name={name} onChange={handler} value={element} checked={value.includes(element)} />
+								<input id={element} type={'checkbox'} name={name} onChange={onChange} value={element} checked={value.includes(element)} />
 								{element}
 							</label>
 						))}

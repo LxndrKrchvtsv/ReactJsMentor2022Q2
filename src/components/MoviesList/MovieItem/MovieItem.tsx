@@ -10,33 +10,20 @@ type MovieItemType = {
 	releaseDate: string;
 	tagline: string;
 	title: string;
-	handler: () => void;
-	handlerRemove: () => void;
-	handleOpen: (id: number) => () => void;
+	openRemoveModal: (movieEditId: number) => void;
+	handleOpenDetail: (id: number) => () => void;
+	openEditModal: (booleanValue: boolean, event: React.MouseEvent<HTMLSpanElement, MouseEvent>, movieEditId: number) => void;
 };
 
-export const MovieItem = ({
-	id,
-	posterPath,
-	releaseDate,
-	tagline,
-	title,
-	handler,
-	handlerRemove,
-	handleOpen
-}: MovieItemType) => {
+export const MovieItem = ({ id, posterPath, releaseDate, tagline, title, openRemoveModal, handleOpenDetail, openEditModal }: MovieItemType) => {
 	const [isOptionVisible, setIsOptionVisible] = useState(false);
 	const handleOptionVisible = (booleanOption: boolean) => () => {
 		setIsOptionVisible(booleanOption);
 	};
 
 	return (
-		<div className={Styles.movie__wrapper}
-		     onMouseEnter={handleOptionVisible(true)}
-		     onMouseLeave={handleOptionVisible(false)}
-		     onClick={handleOpen(id)}>
-			{isOptionVisible &&
-			<ButtonOption handler={handler} handlerRemove={handlerRemove} />}
+		<div className={Styles.movie__wrapper} onMouseEnter={handleOptionVisible(true)} onMouseLeave={handleOptionVisible(false)} onClick={handleOpenDetail(id)}>
+			{isOptionVisible && <ButtonOption openRemoveModal={openRemoveModal} openEditModal={openEditModal} movieEditId={id} />}
 			<div>
 				<img src={posterPath} alt={'movie'} />
 			</div>
@@ -45,8 +32,7 @@ export const MovieItem = ({
 					<div className={Styles.movie__header}>{title}</div>
 					<div className={Styles.movie__description}>{tagline}</div>
 				</div>
-				<div
-					className={Styles.movie__date__release}>{releaseDate.slice(0, 4)}</div>
+				<div className={Styles.movie__date__release}>{releaseDate.slice(0, 4)}</div>
 			</div>
 		</div>
 	);

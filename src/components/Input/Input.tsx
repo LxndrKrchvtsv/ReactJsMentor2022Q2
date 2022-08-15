@@ -1,22 +1,22 @@
 import React from 'react';
 
-type Props = {
+export type Props = {
 	title: string;
 	name: string;
 	placeholder: string;
 	type: string;
 	handlerValue: (event: React.ChangeEvent<HTMLInputElement>) => void;
-	value: string;
+	value: string | number | null;
 	inputClassName?: string;
 };
 
-export const Input = ({ title, name, placeholder, type, handlerValue, value, inputClassName }: Props) => {
+export const Input = ({ inputClassName, name, title, type, placeholder, value, handlerValue }: Props) => {
 	return (
 		<div className={inputClassName}>
 			<label htmlFor={name} aria-label={title}>
 				{title}
 			</label>
-			<input type={type} placeholder={placeholder} value={value} onChange={handlerValue} name={name} />
+			<input type={type} placeholder={placeholder} value={value!} onChange={handlerValue} name={name} />
 		</div>
 	);
 };

@@ -8,10 +8,10 @@ import Styles from './Modal.module.css';
 type Props = {
 	children: ReactNode;
 	handler: () => void;
-	isClosed: boolean;
+	isOpenModal: boolean;
 };
 
-export const Modal = ({ children, handler, isClosed }: Props) => {
+export const Modal = ({ children, handler, isOpenModal }: Props) => {
 	const [container] = useState(() => {
 		return document.createElement('div');
 	});
@@ -23,11 +23,11 @@ export const Modal = ({ children, handler, isClosed }: Props) => {
 		};
 	}, [container]);
 
-	if (!isClosed) return null;
+	if (!isOpenModal) return null;
 
 	return ReactDOM.createPortal(
 		<div className={Styles.overlay__wrapper} onClick={handler}>
-			<div className={Styles.modal__wrapper} onClick={(e) => e.stopPropagation()}>
+			<div className={Styles.modal__wrapper} onClick={(event) => event.stopPropagation()}>
 				<ButtonClose handler={handler} />
 				{children}
 			</div>

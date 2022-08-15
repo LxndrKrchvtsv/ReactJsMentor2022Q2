@@ -3,7 +3,7 @@ import React from 'react';
 import Styles from './ButtonClose.module.css';
 
 type Props = {
-	handler?: () => void;
+	handler?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 	isItSmall?: boolean;
 };
 
