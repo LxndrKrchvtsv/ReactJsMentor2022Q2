@@ -1,7 +1,11 @@
 import React from 'react';
 
-import { Props } from '../../types/types';
+import { Logo } from '../../components/UI/Logo/Logo';
 
 import Styles from './Footer.module.css';
 
-export const Footer = (props: Props) => <footer className={Styles.footer__wrapper}>{props.children}</footer>;
+export const Footer = () => (
+	<footer className={Styles.footer__wrapper}>
+		<Logo />
+	</footer>
+);

@@ -1,32 +1,36 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
-import { getMoviesList } from '../../api/api';
+import Styles from '../../App.module.css';
+import { Movie, MoviesListResponse } from '../../core/types/types';
 
-import { Movie } from '../../types/types';
-
-import Styles from './MoviesList.module.css';
 import { MovieItem } from './MovieItem/MovieItem';
 
-export const MoviesList = () => {
-	const [moviesList, setMoviesList] = useState<Movie[] | null>(null);
+type Props = {
+	openRemoveModal: (boolean: boolean, editId: number | null) => void;
+	openEditModal: (booleanValue: boolean, event: React.MouseEvent<HTMLSpanElement, MouseEvent>, movieEditId: number) => void;
+	moviesListResponse: MoviesListResponse;
+};
 
-	useEffect(() => {
-		getMoviesList().then((res) => setMoviesList(res.data.data));
-	}, []);
-
+export const MoviesList = ({ openRemoveModal, openEditModal, moviesListResponse: { data: movies, isLoading, isSuccess, isError, error } }: Props) => {
 	return (
 		<div className={Styles.movies__list__wrapper}>
-			{moviesList?.map((movie) => {
-				return (
-					<MovieItem
-						key={movie.id}
-						posterPath={movie.poster_path}
-						releaseDate={movie.release_date}
-						tagline={movie.tagline}
-						title={movie.title}
-					/>
-				);
-			})}
+			{isError && error}
+			{isLoading && 'Please wait while loading.'}
+			{isSuccess &&
+				movies.map((movie: Movie) => {
+					return (
+						<MovieItem
+							key={movie.id}
+							id={movie.id}
+							posterPath={movie.poster_path}
+							releaseDate={movie.release_date}
+							tagline={movie.tagline}
+							title={movie.title}
+							openRemoveModal={openRemoveModal}
+							openEditModal={openEditModal}
+						/>
+					);
+				})}
 		</div>
 	);
 };

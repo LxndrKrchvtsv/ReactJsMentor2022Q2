@@ -33,15 +33,17 @@ module.exports = {
         ],
     },
     output: {
+        publicPath: '/',
         path: path.resolve(__dirname, '..', './build'),
-        filename: 'bundle.js',
     },
     plugins: [
         new CleanWebpackPlugin({
             verbose: true,
         }),
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '..', './src/index.html'),
+            title: 'React App',
+            template: 'src/index.html',
+            filename: 'index.html',
         }),
     ],
     stats: 'errors-only',
