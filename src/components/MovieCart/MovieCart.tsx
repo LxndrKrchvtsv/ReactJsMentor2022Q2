@@ -2,18 +2,15 @@ import React from 'react';
 
 import { Field, Formik } from 'formik';
 
-import { Label } from '../Label/Label';
-import { Input, Props as InputProps } from '../Input/Input';
-import { Textarea, Props as TextareaProps } from '../Textarea/Textarea';
-import { Select, Props as SelectProps } from '../Select/Select';
-import { Button } from '../Button/Button';
+import { Label } from '../UI/Label/Label';
+import { Input, Props as InputProps } from '../UI/Input/Input';
+import { Textarea, Props as TextareaProps } from '../UI/Textarea/Textarea';
+import { Select, Props as SelectProps } from '../UI/Select/Select';
+import { Button } from '../UI/Button/Button';
 
-import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { createMovieThunk } from '../../store/CreateAsyncThunks/createMovieThunk';
+import { FormField, MoviesListResponse } from '../../core/types/types';
 
-import { FormField } from '../../types/types';
-import { useAppSelector } from '../../hooks/useAppSelector';
-import { editMovieThunk } from '../../store/CreateAsyncThunks/editMovieThunk';
+import { useAddMovieMutation, useEditMovieMutation } from '../../core/store/features/api/movieSlice';
 
 import { validateEmptyString, validateGenres, validateNumber, validatePosterPath } from './validation';
 import Styles from './MovieCart.module.css';
@@ -21,6 +18,7 @@ import Styles from './MovieCart.module.css';
 type Props = {
 	header: string;
 	movieEditId: number | null;
+	moviesList: MoviesListResponse;
 };
 
 const InputValidateComponent = ({ field, form: { touched, errors }, ...props }: FormField & InputProps) => (
@@ -54,12 +52,11 @@ const initialValues = {
 	genres: [],
 };
 
-export const MovieCart = ({ header, movieEditId }: Props) => {
-	const dispatch = useAppDispatch();
-	const { moviesList } = useAppSelector((state) => state.moviesListReducer);
-
+export const MovieCart = ({ header, movieEditId, moviesList: { data: movies } }: Props) => {
+	const [addMovie, { isSuccess: isSuccessAdd }] = useAddMovieMutation();
+	const [editMovie, { isSuccess: isSuccessEdit }] = useEditMovieMutation();
 	const getMovieById = () => {
-		const filmById = moviesList.filter((film) => film.id === movieEditId);
+		const filmById = movies.filter((film) => film.id === movieEditId);
 		return filmById[0];
 	};
 
@@ -72,13 +69,15 @@ export const MovieCart = ({ header, movieEditId }: Props) => {
 					runtime: Number(values.runtime),
 					vote_average: parseFloat(values.vote_average as unknown as string),
 				};
-				if (!movieEditId) return dispatch(createMovieThunk(formattedData));
-				if (movieEditId) return dispatch(editMovieThunk(formattedData));
+				if (!movieEditId) return addMovie(formattedData);
+				if (movieEditId) return editMovie(formattedData);
 				setSubmitting(false);
 			}}
 		>
 			{({ handleSubmit, handleChange, handleReset, values }) => (
 				<form onSubmit={handleSubmit}>
+					{isSuccessAdd && 'Movie has been added successful'}
+					{isSuccessEdit && 'Movie has been edited successful'}
 					<div className={Styles.add__movie__container}>
 						<Label label={header} />
 						<div className={Styles.add__movies__inputs__wrapper}>

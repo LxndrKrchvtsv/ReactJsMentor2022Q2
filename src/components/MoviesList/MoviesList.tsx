@@ -1,36 +1,23 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
-import { useAppSelector } from '../../hooks/useAppSelector';
-import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { fetchMoviesList } from '../../store/CreateAsyncThunks/fetchMoviesList';
+import Styles from '../../App.module.css';
+import { Movie, MoviesListResponse } from '../../core/types/types';
 
 import { MovieItem } from './MovieItem/MovieItem';
 
 type Props = {
-	openRemoveModal: (movieEditId: number) => void;
-	handleOpenDetail: (id: number) => () => void;
+	openRemoveModal: (boolean: boolean, editId: number | null) => void;
 	openEditModal: (booleanValue: boolean, event: React.MouseEvent<HTMLSpanElement, MouseEvent>, movieEditId: number) => void;
+	moviesListResponse: MoviesListResponse;
 };
 
-export const MoviesList = ({ openRemoveModal, handleOpenDetail, openEditModal }: Props) => {
-	const dispatch = useAppDispatch();
-	const { moviesList, isLoading, error, activeGenre, sortBy } = useAppSelector((state) => state.moviesListReducer);
-
-	useEffect(() => {
-		const genre = activeGenre !== 'ALL' ? activeGenre : null;
-		dispatch(
-			fetchMoviesList({
-				genre,
-				sortBy,
-			})
-		);
-	}, [activeGenre, sortBy, dispatch]);
-
+export const MoviesList = ({ openRemoveModal, openEditModal, moviesListResponse: { data: movies, isLoading, isSuccess, isError, error } }: Props) => {
 	return (
-		<>
+		<div className={Styles.movies__list__wrapper}>
+			{isError && error}
 			{isLoading && 'Please wait while loading.'}
-			{error ||
-				moviesList.map((movie) => {
+			{isSuccess &&
+				movies.map((movie: Movie) => {
 					return (
 						<MovieItem
 							key={movie.id}
@@ -40,11 +27,10 @@ export const MoviesList = ({ openRemoveModal, handleOpenDetail, openEditModal }:
 							tagline={movie.tagline}
 							title={movie.title}
 							openRemoveModal={openRemoveModal}
-							handleOpenDetail={handleOpenDetail}
 							openEditModal={openEditModal}
 						/>
 					);
 				})}
-		</>
+		</div>
 	);
 };

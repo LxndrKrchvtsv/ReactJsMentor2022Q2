@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
-import { ButtonOption } from '../../ButtonOption/ButtonOption';
+import { ButtonOption } from '../../UI/ButtonOption/ButtonOption';
+
+import useQueryParams from '../../../hooks/useQueryParams';
 
 import Styles from './Movie.module.css';
 
@@ -10,19 +12,19 @@ type MovieItemType = {
 	releaseDate: string;
 	tagline: string;
 	title: string;
-	openRemoveModal: (movieEditId: number) => void;
-	handleOpenDetail: (id: number) => () => void;
+	openRemoveModal: (boolean: boolean, editId: number | null) => void;
 	openEditModal: (booleanValue: boolean, event: React.MouseEvent<HTMLSpanElement, MouseEvent>, movieEditId: number) => void;
 };
 
-export const MovieItem = ({ id, posterPath, releaseDate, tagline, title, openRemoveModal, handleOpenDetail, openEditModal }: MovieItemType) => {
+export const MovieItem = ({ id, posterPath, releaseDate, tagline, title, openRemoveModal, openEditModal }: MovieItemType) => {
+	const [, setMovieId] = useQueryParams('movieId');
 	const [isOptionVisible, setIsOptionVisible] = useState(false);
 	const handleOptionVisible = (booleanOption: boolean) => () => {
 		setIsOptionVisible(booleanOption);
 	};
 
 	return (
-		<div className={Styles.movie__wrapper} onMouseEnter={handleOptionVisible(true)} onMouseLeave={handleOptionVisible(false)} onClick={handleOpenDetail(id)}>
+		<div className={Styles.movie__wrapper} onMouseEnter={handleOptionVisible(true)} onMouseLeave={handleOptionVisible(false)} onClick={() => setMovieId(id)}>
 			{isOptionVisible && <ButtonOption openRemoveModal={openRemoveModal} openEditModal={openEditModal} movieEditId={id} />}
 			<div>
 				<img src={posterPath} alt={'movie'} />

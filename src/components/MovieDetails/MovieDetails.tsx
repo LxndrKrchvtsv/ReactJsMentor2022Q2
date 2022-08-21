@@ -1,26 +1,21 @@
 import React, { useCallback, useEffect } from 'react';
 
 import SearchButton from '../../asset/inline/SearchButton.svg';
-import { Logo } from '../Logo/Logo';
-import { Label } from '../Label/Label';
-import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { useAppSelector } from '../../hooks/useAppSelector';
-import { fetchMovieDetail } from '../../store/CreateAsyncThunks/fetchMovieDetail';
+import { Logo } from '../UI/Logo/Logo';
+import { Label } from '../UI/Label/Label';
+
+import { useLazyGetMovieQuery } from '../../core/store/features/api/movieSlice';
+import useQueryParams from '../../hooks/useQueryParams';
 
 import Styles from './MovieDetails.module.css';
 
-type Props = {
-	id: number | null;
-	handler: (id: null) => () => void;
-};
-
-export const MovieDetails = ({ id, handler }: Props) => {
-	const dispatch = useAppDispatch();
-	const { movie, isLoading, error } = useAppSelector((state) => state.movieDetailReducer);
+export const MovieDetails = () => {
+	const [movieId, setMovieId] = useQueryParams('movieId');
+	const [getMovie, { data: movie, isLoading, isSuccess, isError, error }] = useLazyGetMovieQuery();
 
 	useEffect(() => {
-		id && dispatch(fetchMovieDetail(id));
-	}, [id, dispatch]);
+		getMovie(movieId);
+	}, [movieId, getMovie]);
 
 	const getHoursFromMinutes = useCallback(() => {
 		const hours = Math.trunc(movie.runtime / 60);
@@ -32,10 +27,11 @@ export const MovieDetails = ({ id, handler }: Props) => {
 		<div className={Styles.section__description__wrapper}>
 			<div className={Styles.logo__search}>
 				<Logo small={true} />
-				<img src={SearchButton} alt={'Search'} onClick={handler(null)} />
+				<img src={SearchButton} alt={'Search'} onClick={() => setMovieId(null)} />
 			</div>
+			{isError && error}
 			{isLoading && 'Please wait while it is loading'}
-			{error || isLoading || (
+			{isSuccess && (
 				<div className={Styles.block__description__wrapper}>
 					<div className={Styles.poster}>
 						<img src={movie?.poster_path} alt={'poster'} />

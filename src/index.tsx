@@ -6,7 +6,7 @@ import './App.module.css';
 import { Provider } from 'react-redux';
 
 import App from './App';
-import { store } from './store/store';
+import { store } from './core/store/store';
 
 const root = createRoot(document.getElementById('root') as HTMLElement);
 root.render(

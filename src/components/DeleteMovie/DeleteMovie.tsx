@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-import { Label } from '../Label/Label';
-import { Button } from '../Button/Button';
+import { Label } from '../UI/Label/Label';
+import { Button } from '../UI/Button/Button';
 
-import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { removeMovieThunk } from '../../store/CreateAsyncThunks/removeMovieThunk';
+import { useLazyGetMoviesQuery, useRemoveMovieMutation } from '../../core/store/features/api/movieSlice';
 
 import Styles from './DeleteMovie.module.css';
 
@@ -13,17 +12,26 @@ type Props = {
 };
 
 export const DeleteMovie = ({ id }: Props) => {
-	const dispatch = useAppDispatch();
+	const [removeMovie, { isSuccess }] = useRemoveMovieMutation();
+	const [getMovies] = useLazyGetMoviesQuery();
+
+	useEffect(() => {
+		getMovies({
+			sortBy: '',
+			sortOrder: 'asc',
+		});
+	}, [isSuccess, getMovies]);
+
 	const handleRemove = () => {
-		if (id) return dispatch(removeMovieThunk(id));
-		return null;
+		removeMovie(id);
 	};
 
 	return (
 		<div className={Styles.delete__movie__container}>
 			<Label label={'REMOVE MOVIE'} />
-			<p>{'Are you sure you want to delete this movie?'}</p>
-			<Button classButton={Styles.button__confirm} label={'CONFIRM'} handler={handleRemove} />
+			<p>{isSuccess && 'Movie has been removed successful'}</p>
+			<p>{!isSuccess && 'Are you sure you want to delete this movie?'}</p>
+			{!isSuccess && <Button classButton={Styles.button__confirm} label={'CONFIRM'} handler={handleRemove} />}
 		</div>
 	);
 };
